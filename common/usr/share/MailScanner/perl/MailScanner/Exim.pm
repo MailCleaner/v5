@@ -842,6 +842,18 @@ sub AddHeader {
   return 1;
 }
 
+## MailCleaner
+# Is this needed? It seems that we could do this with AddHeader() above.
+sub AddHeaderToOriginal {
+  my($this, $message, $newkey, $newvalue) = @_;
+  my($newheader);
+  $newvalue = " " unless defined $newvalue;
+  chomp($newvalue);
+  $newheaer = $newkey.": ".$newvalue;
+  push @{$message->{headers}}, $newheader;
+  return 1;
+}
+## end MailCleaner
 
 # This is how we build the entry that goes in the -H file
 #    sprintf("%03d  ", length($newheader)+1) . $newheader . "\n";
@@ -976,6 +988,20 @@ sub PrependHeader {
   return 1;
 }
 
+## MailCleaner
+# Also necessary? Again, seems like we could use PrependHeader() above.
+# We don't even use the MC_NEWS tag, so we need to verify this.
+sub PrependHeaderToOriginal {
+  my($this, $message, $key, $data, $sep) = @_;
+
+  $data = "" unless defined $data;
+  chomp($data);
+  foreach my $tmp (@{$message->{headers}}) {
+    $tmp =~ s/^Subject:/Subject: \{MC_NEWS\}/;
+  }
+  return 1;
+}
+## end MailCleaner
 
 sub TextStartsHeader {
   my($this, $message, $key, $text) = @_;
@@ -1766,5 +1792,27 @@ sub CheckQueueIsFlat {
 
   return 1;
 }
+
+## MailCleaner
+sub AddHeaderToOriginal {
+  my($this, $message, $newkey, $newvalue) = @_;
+  my($newheader);
+  $newvalue = " " unless defined $newvalue;
+  chomp($newvalue);
+  $newheader = $newkey.": ".$newvalue;
+  push @{$message->{headers}}, $newheaer;
+  return 1;
+}
+
+sub PrependHeaderToOriginal {
+  my($this, $message, $key, $data, $sep) = @_;
+  $data = "" unless defined $data;
+  chomp($data);
+  foreach my $tmp (@{$message->{headers}}) {
+    $tmp =~ s/^Subject:/Subject:\{MC_NEWS\}/;
+  }
+  return 1;
+}
+## end MailCleaner
 
 1;

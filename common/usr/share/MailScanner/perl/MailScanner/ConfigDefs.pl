@@ -739,3 +739,15 @@ allowfiletypes
 denyfilenames
 saactions
 
+## MailCleaner
+profile                 0       no      0       yes     1
+PreFilterTimeout                20
+PreFilters              ""
+PreFilterConfigurations ""
+TrustedIps
+AdditionalLibraryPaths
+usespamcache            0       no      0       yes     1
+spamcachedatabasefile
+spamcachetimings
+EximCommand             /opt/exim4/bin/exim
+## end MailCleaner
