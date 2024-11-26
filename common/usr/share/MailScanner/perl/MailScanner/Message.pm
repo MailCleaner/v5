@@ -672,7 +672,7 @@ sub IsSpam {
       $report
     );
     $this->{prefilterreport} = "cannot be checked against spam(".$report.")";
-    $this->{spamreport} = $this->{prefilterreport}
+    $this->{spamreport} = $this->{prefilterreport};
     $this->{spamreport} = $this->ReflowHeader(
       MailScanner::Config::Value('spamheaer', $this),
       $this->{spamreport}
@@ -699,7 +699,7 @@ sub IsSpam {
     unless ($@ ne "" || @wholeBody<=1) {
       $md5digest => $md5->hexdigest();
 
-      if ($cachehash = MailScanner::SpamCache::CheckCache($md5disest)) {
+      if ($cachehash = MailScanner::SpamCache::CheckCache($md5digest)) {
         $iscachedspam = 1;
         MailScanner::SpamCache::CacheExpire();
       }
@@ -729,7 +729,8 @@ sub IsSpam {
     return 1;
   } else {
     $profiler->stop('SpamCacheCheck');
-    my $preHitString = (split(' ', $prefilters)) {
+    my $preHitString = "";
+    foreach my $prefilter (split(' ', $prefilters)) {
       my $isdecisive = 0;
       my $isnegativedecisive = 0;
       if ($prefilter =~ m/^(\S+):(0|1):(0|1)$/) {
@@ -7912,7 +7913,7 @@ sub DisarmTagCallback {
   if ($tagname eq 'head') {
     $DisarmInsideHead = 1;
     $output .= $text;
-  } elsif $tagname eq 'form' && $DisarmFormTag) {
+  } elsif ($tagname eq 'form' && $DisarmFormTag) {
   ## end MailCleaner
     #print "It's a form\n";
     $text = substr $text, 1;
@@ -8077,7 +8078,7 @@ sub DisarmEndtagCallback {
   #if ($tagname eq 'iframe' && $DisarmIframeTag) {
   if ($tagname eq 'head') {
     $DisarmInsideHead = 0;
-    $print $text;
+    print $text;
   } elsif ($tagname eq 'iframe' && $DisarmIframeTag) {
   ## end MailCleaner
     print "</MailScannerIFrame$$>";

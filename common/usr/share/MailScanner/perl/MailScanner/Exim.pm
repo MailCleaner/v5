@@ -849,7 +849,7 @@ sub AddHeaderToOriginal {
   my($newheader);
   $newvalue = " " unless defined $newvalue;
   chomp($newvalue);
-  $newheaer = $newkey.": ".$newvalue;
+  $newheader = $newkey.": ".$newvalue;
   push @{$message->{headers}}, $newheader;
   return 1;
 }
@@ -1800,7 +1800,7 @@ sub AddHeaderToOriginal {
   $newvalue = " " unless defined $newvalue;
   chomp($newvalue);
   $newheader = $newkey.": ".$newvalue;
-  push @{$message->{headers}}, $newheaer;
+  push @{$message->{headers}}, $newheader;
   return 1;
 }
 

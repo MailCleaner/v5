@@ -81,7 +81,7 @@ my($vardir) = $config{'VARDIR'};
    listen(SERVER, SOMAXCONN) or exit;
 
    # Our reason for existence - the persistent connection to the database
-   $dbh = DBI->connect("DBI:mysql:database=$db_name;host=localhost;mysql_socket=$db_socket", $db_user, $db_pass, {PrintError => 0});
+   $dbh = DBI->connect("DBI:MariaDB:database=$db_name;host=localhost;mariadb_socket=$db_socket", $db_user, $db_pass, {PrintError => 0});
    if (!$dbh) {
     MailScanner::Log::WarnLog("Unable to initialise database connection: %s", $DBI::errstr);
    }
