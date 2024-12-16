@@ -148,6 +148,12 @@ elif [ ! -L '/etc/init.d/mailscanner' ]; then
     ln -s /usr/lib/MailScanner/init/msmilter-init /etc/init.d/msmilter
 fi
 
+## MailCleaner
+# Don't deply and update config files, these are managed by MailCleaner repo
+# Also don't enable in systemd, this managed with mailcleaner.target
+exit 0
+## end MailCleaner
+
 # create if missing
 [ -d '/etc/MailScanner/conf.d' ] || mkdir -p /etc/MailScanner/conf.d
 

@@ -1,4 +1,4 @@
-Package: MailScanner
+Package: mc-mailscanner
 Version: DebianVersionHere
 Architecture: all
 Section: mail
