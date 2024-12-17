@@ -66,8 +66,13 @@ fi
 mkdir -p $WORK
 mkdir -p $WORK/{usr,etc}
 
-# etc
-cp -fr $DEVBASEDIR/common/etc/*	$WORK/etc/
+## MailCleaner
+# Don't copy config files to MailCleaner repo
+## etc
+#cp -fr $DEVBASEDIR/common/etc/*	$WORK/etc/
+mkdir -p $WORK/etc/MailScanner
+cp -fr $DEVBASEDIR/common/etc/MailScanner/MailScanner.conf $WORK/etc/MailScanner/MailScanner.conf
+## end MailCleaner
 cp -fr $DEVBASEDIR/debian/etc/*	$WORK/etc/
 
 # usr

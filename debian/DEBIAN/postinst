@@ -69,32 +69,35 @@ install -d -o$runasuser -gmtagroup -m0775 /var/spool/MailScanner/quarantine
 install -d -o$runasuser -gmtagroup -m0775 /var/spool/MailScanner/milterin
 install -d -o$runasuser -gmtagroup -m0775 /var/spool/MailScanner/milterout
 
-if [ -d '/etc/MailScanner/custom' -o -L '/etc/MailScanner/custom' ]; then
-    rm -f /etc/MailScanner/custom
-fi
-
-# softlink for custom functions
-if [ -d '/usr/share/MailScanner/perl/custom' -a ! -L '/etc/MailScanner/custom' ]; then
-    ln -s /usr/share/MailScanner/perl/custom /etc/MailScanner/custom
-fi
-
-# softlink for reports
-if [ -d '/usr/share/MailScanner/reports' -a ! -L '/etc/MailScanner/reports' ]; then
-    ln -s /usr/share/MailScanner/reports /etc/MailScanner/reports
-fi
-
-# remove old link if present
-if [ -L '/etc/mail/spamassassin/mailscanner.cf' ]; then
-    rm -f /etc/mail/spamassassin/mailscanner.cf
-fi
-
-if [ -L '/etc/mail/spamassassin/MailScanner.cf' ]; then
-    rm -f /etc/mail/spamassassin/MailScanner.cf
-fi
-
-if [ -f '/etc/MailScanner/spam.assassin.prefs.conf' ]; then
-    mv -f /etc/MailScanner/spam.assassin.prefs.conf /etc/MailScanner/spamassassin.conf
-fi
+## MailCleaner
+# Don't overwrite MailCleaner configs
+#if [ -d '/etc/MailScanner/custom' -o -L '/etc/MailScanner/custom' ]; then
+    #rm -f /etc/MailScanner/custom
+#fi
+#
+## softlink for custom functions
+#if [ -d '/usr/share/MailScanner/perl/custom' -a ! -L '/etc/MailScanner/custom' ]; then
+    #ln -s /usr/share/MailScanner/perl/custom /etc/MailScanner/custom
+#fi
+#
+## softlink for reports
+#if [ -d '/usr/share/MailScanner/reports' -a ! -L '/etc/MailScanner/reports' ]; then
+    #ln -s /usr/share/MailScanner/reports /etc/MailScanner/reports
+#fi
+#
+## remove old link if present
+#if [ -L '/etc/mail/spamassassin/mailscanner.cf' ]; then
+    #rm -f /etc/mail/spamassassin/mailscanner.cf
+#fi
+#
+#if [ -L '/etc/mail/spamassassin/MailScanner.cf' ]; then
+    #rm -f /etc/mail/spamassassin/MailScanner.cf
+#fi
+#
+#if [ -f '/etc/MailScanner/spam.assassin.prefs.conf' ]; then
+    #mv -f /etc/MailScanner/spam.assassin.prefs.conf /etc/MailScanner/spamassassin.conf
+#fi
+## end MailCleaner
 
 # remove old symlink if present
 if [ -L '/etc/init.d/mailscanner' ]; then
